@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Website - Quiz</title>
-    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,7 +43,9 @@
         form {
             max-width: 600px;
             margin: 0 auto;
+            margin-bottom: 100px; /* Add margin to the bottom of the form */
         }
+        
 
         fieldset {
             margin-bottom: 20px;
@@ -59,6 +60,11 @@
         label {
             display: block;
             margin-bottom: 10px;
+            transition: background-color 0.3s ease; /* Menambahkan efek transisi hover */
+        }
+
+        label:hover {
+            background-color: #eee; /* Warna latar belakang ketika dihover */
         }
 
         input[type="radio"] {
@@ -71,6 +77,11 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            transition: background-color 0.3s ease; /* Menambahkan efek transisi hover */
+        }
+
+        button:hover {
+            background-color: #555; /* Warna latar belakang tombol saat dihover */
         }
 
         footer {
@@ -105,13 +116,13 @@
     <h1>Quiz</h1>
 
     <!-- Quiz questions -->
-    <form action="{{ url_for('quiz_result') }}" method="POST">
+    <form action="{{ url_for('quiz') }}" method="POST">
         {% for question in quiz_questions %}
             <fieldset>
-                <legend>{{ question.question }}</legend>
-                {% for option in question.options %}
+                <legend>{{ question.question_text }}</legend>
+                {% for option in [question.option1, question.option2, question.option3, question.option4] %}
                     <label>
-                        <input type="radio" name="{{ question.id }}" value="{{ option }}">
+                        <input type="radio" name="{{ question.id }}" value="{{ loop.index }}">
                         {{ option }}
                     </label><br>
                 {% endfor %}
@@ -123,7 +134,7 @@
 
     <!-- Footer with developer information -->
     <footer>
-        <p>Developed by ChatGPT</p>
+        <p>Developed by Kinan @ 2024</p>
     </footer>
 </body>
 

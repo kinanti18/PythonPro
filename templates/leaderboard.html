@@ -10,6 +10,8 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            text-align: center;
+            color: #333;
         }
 
         header {
@@ -97,7 +99,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for index, score in enumerate(scores, start=1) %}
+                {% for index, score in scores %}
                     <tr>
                         <td>{{ index }}</td>
                         <td>{{ score.user.nickname }}</td>
@@ -112,7 +114,7 @@
 
     <!-- Footer with developer information -->
     <footer>
-        <p>Developed by Your Name</p>
+        <p>Developed by Kinan @ 2024</p>
     </footer>
 </body>
 </html>

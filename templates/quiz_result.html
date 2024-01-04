@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Quiz Result</h1>
+
+    <!-- Display the score -->
+    <p style="font-size: 2em;">Your Score: <strong>{{ result['score'] }}</strong></p>
+
+    <!-- Display the correct options for each question -->
+    <div style="max-width: 600px; margin: 0 auto;">
+        {% for question_id, correct_option in result['correct_options'].items() %}
+            <p style="font-size: 1.2em;">Question {{ question_id }}: Correct Option - {{ correct_option }}</p>
+        {% endfor %}
+    </div>
+
+    <!-- Link to go back to the quiz or any other relevant page -->
+    <a href="{{ url_for('quiz') }}" style="font-size: 1.2em;">Back to Quiz</a>
+
+    <!-- Footer with developer information -->
+    <footer>
+        <p>Developed by Kinan @ 2024</p>
+    </footer>
+
+</body>
+</html>
