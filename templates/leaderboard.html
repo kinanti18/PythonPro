@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website - Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #333;
+            padding: 10px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin-left: 15px; /* Add spacing between links */
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }        
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with navigation menu (Adjust as needed) -->
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+                {% if 'user_id' in session %}
+            <a href="{{ url_for('quiz') }}">Quiz</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+        </nav>
+    </header>
+
+    <h1>Leaderboard</h1>
+
+    {% if scores %}
+        <!-- Display leaderboard table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Nickname</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, score in enumerate(scores, start=1) %}
+                    <tr>
+                        <td>{{ index }}</td>
+                        <td>{{ score.user.nickname }}</td>
+                        <td>{{ score.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No scores available on the leaderboard.</p>
+    {% endif %}
+
+    <!-- Footer with developer information -->
+    <footer>
+        <p>Developed by Your Name</p>
+    </footer>
+</body>
+</html>

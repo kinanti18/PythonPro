@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #333;
+            padding: 10px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin-left: 15px; /* Add spacing between links */
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }        
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('quiz') }}">Quiz</a>
+                <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('register') }}">Register</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            {% endif %}
+        </nav>        
+    </header>
+
+    <h1>Welcome to the Quiz Website!</h1>
+    
+    <!-- Weather widget -->
+    <form action="{{ url_for('home') }}" method="POST">
+        <label for="city">Enter city:</label>
+        <input type="text" name="city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather_data %}
+        <!-- Weather forecast table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Day Temperature (°C)</th>
+                    <th>Night Temperature (°C)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for forecast in weather_data %}
+                    <tr>
+                        <td>{{ forecast['date'] }}</td>
+                        <td>{{ forecast['day_name'] }}</td>
+                        <td>{{ forecast['temp_day'] }}</td>
+                        <td>{{ forecast['temp_night'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No weather data available.</p>
+    {% endif %}
+
+    <!-- Footer with developer information -->
+    <footer>
+        <p>Developed by Your Name</p>
+    </footer>
+</body>
+</html>

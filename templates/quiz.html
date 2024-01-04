@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website - Quiz</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #333;
+            padding: 10px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin-left: 15px; /* Add spacing between links */
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }        
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header with navigation menu (Adjust as needed) -->
+    <header>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+                {% if 'user_id' in session %}
+            <a href="{{ url_for('quiz') }}">Quiz</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('login') }}">Login</a>
+                {% endif %}
+        </nav>
+    </header>
+
+    <h1>Quiz</h1>
+
+    <!-- Quiz questions -->
+    <form action="{{ url_for('quiz_result') }}" method="POST">
+        {% for question in quiz_questions %}
+            <fieldset>
+                <legend>{{ question.question }}</legend>
+                {% for option in question.options %}
+                    <label>
+                        <input type="radio" name="{{ question.id }}" value="{{ option }}">
+                        {{ option }}
+                    </label><br>
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+        <button type="submit">Submit Quiz</button>
+    </form>
+
+
+    <!-- Footer with developer information -->
+    <footer>
+        <p>Developed by ChatGPT</p>
+    </footer>
+</body>
+
+</html>
